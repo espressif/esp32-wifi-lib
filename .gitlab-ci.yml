@@ -1,5 +1,31 @@
 stages:
+  - check
   - deploy
+
+check_lib_reversion:
+  stage: check
+  except:
+    - master
+    - /^release\/v/
+  image: $CI_DOCKER_REGISTRY/esp32-ci-env
+  script:
+    - GIT_COMMIT_ID=`git log --pretty="%s" -1 | grep -o '([0-9a-f]*)' | tail -1 | cut -c 2-8`
+    - echo "GIT_COMMIT_ID is "$GIT_COMMIT_ID
+    - test $(echo -n $GIT_COMMIT_ID | wc -c) -eq 7
+    - grep $GIT_COMMIT_ID libcoexist.a
+    - grep $GIT_COMMIT_ID libcore.a
+    - grep $GIT_COMMIT_ID libespnow.a
+    - grep $GIT_COMMIT_ID libespnow.a
+    - grep $GIT_COMMIT_ID libnet80211.a
+    - grep $GIT_COMMIT_ID libpp.a
+    - grep $GIT_COMMIT_ID libsmartconfig.a
+    - grep $GIT_COMMIT_ID libwps.a
+    - grep $GIT_COMMIT_ID libwpa.a
+    - grep $GIT_COMMIT_ID libwpa2.a
+    - grep $GIT_COMMIT_ID-remote libnet80211.a
+    - test $(grep $GIT_COMMIT_ID-dirty *.a | wc -l) -eq 0
+    - test $(xtensa-esp32-elf-nm *.a | grep -w printf | wc -l) -eq 0
+    - test $(xtensa-esp32-elf-nm *.a | grep -w ets_printf | wc -l) -eq 0
 
 push_master_to_github:
   stage: deploy
