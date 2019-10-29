@@ -1,7 +1,7 @@
 ESP32 WiFi Stack Libraries
 ====================
 
-This repository contains binary libraries supporting the ESP32 RF subsystems. It is used as a submodule within `Espressif IoT Development Framework`_ (ESP-IDF).
+This repository contains binary libraries supporting the ESP32 series RF subsystems. It is used as a submodule within `Espressif IoT Development Framework`_ (ESP-IDF).
 
 Files in this repository are Copyright (C) 2015-2016 Espressif Systems.
 

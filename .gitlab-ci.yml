@@ -12,20 +12,20 @@ check_lib_reversion:
     - GIT_COMMIT_ID=`git log --pretty="%s" -1 | grep -o '([0-9a-f]*)' | tail -1 | cut -c 2-8`
     - echo "GIT_COMMIT_ID is "$GIT_COMMIT_ID
     - test $(echo -n $GIT_COMMIT_ID | wc -c) -eq 7
-    - grep $GIT_COMMIT_ID libcoexist.a
-    - grep $GIT_COMMIT_ID libcore.a
-    - grep $GIT_COMMIT_ID libespnow.a
-    - grep $GIT_COMMIT_ID libespnow.a
-    - grep $GIT_COMMIT_ID libnet80211.a
-    - grep $GIT_COMMIT_ID libpp.a
-    - grep $GIT_COMMIT_ID libsmartconfig.a
-    - grep $GIT_COMMIT_ID-remote libnet80211.a
-    - test $(grep $GIT_COMMIT_ID-dirty *.a | wc -l) -eq 0
-    - test $(xtensa-esp32-elf-nm *.a | grep -w printf | wc -l) -eq 0
-    - test $(xtensa-esp32-elf-nm *.a | grep -w ets_printf | wc -l) -eq 0
-    - if [ -e libwps.a ]; then exit 1; fi
-    - if [ -e libwpa.a ]; then exit 1; fi
-    - if [ -e libwpa2.a ]; then exit 1; fi
+    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libcoexist.a; done;
+    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libcore.a; done;
+    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libespnow.a; done;
+    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libespnow.a; done;
+    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libnet80211.a; done;
+    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libpp.a; done;
+    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libsmartconfig.a; done;
+    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID-remote $dir/libnet80211.a; done;
+    - for dir in esp32 esp32s2beta; do test $(grep $GIT_COMMIT_ID-dirty $dir/*.a | wc -l) -eq 0; done;
+    - for dir in esp32 esp32s2beta; do test $(xtensa-esp32-elf-nm $dir/*.a | grep -w printf | wc -l) -eq 0; done;
+    - for dir in esp32 esp32s2beta; do test $(xtensa-esp32-elf-nm $dir/*.a | grep -w ets_printf | wc -l) -eq 0; done;
+    - for dir in esp32 esp32s2beta; do if [ -e $dir/libwps.a ]; then exit 1; fi; done;
+    - for dir in esp32 esp32s2beta; do if [ -e $dir/libwpa.a ]; then exit 1; fi; done;
+    - for dir in esp32 esp32s2beta; do if [ -e $dir/libwpa2.a ]; then exit 1; fi; done;
 
 
 push_master_to_github:
