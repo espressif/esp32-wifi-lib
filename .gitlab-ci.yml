@@ -30,11 +30,13 @@ check_lib_reversion:
 
 push_master_to_github:
   stage: deploy
+  tags:
+    - github_sync
   only:
     - master
     - /^release\/v/
 #  when: on_success
-  image: espressif/esp32-ci-env
+  image: $CI_DOCKER_REGISTRY/esp32-ci-env
   variables:
     GIT_STRATEGY: clone
     GITHUB_PUSH_REFS: refs/remotes/origin/release refs/remotes/origin/master
