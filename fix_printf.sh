@@ -2,17 +2,17 @@
 for dir in esp32 esp32s2beta; do
     if [ -d "$dir" ]; then
         cd $dir
-	git status libphy.a | grep modified >/dev/null 2>&1
-	if [ $? -eq 0 ]; then
-	    echo $dir/libphy.a fixed
-	    xtensa-esp32-elf-objcopy --redefine-sym ets_printf=phy_printf libphy.a
+        git status libphy.a | grep modified >/dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            echo $dir/libphy.a fixed
+            xtensa-esp32-elf-objcopy --redefine-sym ets_printf=phy_printf libphy.a
         fi
 
         git status librtc.a | grep modified >/dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo $dir/librtc.a fixed
-	    xtensa-esp32-elf-objcopy --redefine-sym ets_printf=rtc_printf librtc.a
-	fi
+            xtensa-esp32-elf-objcopy --redefine-sym ets_printf=rtc_printf librtc.a
+        fi
 
         git status libsmartconfig.a | grep modified >/dev/null 2>&1
         if [ $? -eq 0 ]; then
