@@ -2,31 +2,12 @@
 for dir in esp32 esp32s2beta; do
     if [ -d "$dir" ]; then
         cd $dir
-        if [ $dir == esp32 ]; then
-            git status libphy.a | grep modified >/dev/null 2>&1
-            if [ $? -eq 0 ]; then
-                echo $dir/libphy.a fixed
-                xtensa-esp32-elf-objcopy --redefine-sym ets_printf=phy_printf libphy.a
-            fi
-        elif [ $dir == esp32s2beta ]; then
-            git status libphyA.a | grep modified >/dev/null 2>&1
-            if [ $? -eq 0 ]; then
-                echo $dir/libphyA.a fixed
-                xtensa-esp32-elf-objcopy --redefine-sym ets_printf=phy_printf libphyA.a
-            fi
-
-            git status libphyB.a | grep modified >/dev/null 2>&1
-            if [ $? -eq 0 ]; then
-                echo $dir/libphyB.a fixed
-                xtensa-esp32-elf-objcopy --redefine-sym ets_printf=phy_printf libphyB.a
-            fi
-
-            git status libphy_marlin3.a | grep modified >/dev/null 2>&1
-            if [ $? -eq 0 ]; then
-                echo $dir/libphy_marlin3.a fixed
-                xtensa-esp32-elf-objcopy --redefine-sym ets_printf=phy_printf libphy_marlin3.a
-            fi
+	git status libphy.a | grep modified >/dev/null 2>&1
+	if [ $? -eq 0 ]; then
+	    echo $dir/libphy.a fixed
+	    xtensa-esp32-elf-objcopy --redefine-sym ets_printf=phy_printf libphy.a
         fi
+
         git status librtc.a | grep modified >/dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo $dir/librtc.a fixed
