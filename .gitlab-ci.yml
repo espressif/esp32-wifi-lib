@@ -1,9 +1,31 @@
 stages:
   - check
+  - build
+  - feature_test
   - deploy
 
+variables:
+  IDF_PATH: "$CI_PROJECT_DIR/esp-idf"
+  MAKEFLAGS:  "-j8"
+  ESPSIGMA_BRANCH: "master"
+  IDF_BRANCH: "master"
+  board: "esp32"
+
+before_script:
+  # Add gitlab ssh key
+  - mkdir -p ~/.ssh
+  - chmod 700 ~/.ssh
+  - echo -n $GITLAB_KEY > ~/.ssh/id_rsa_base64
+  - base64 --decode --ignore-garbage ~/.ssh/id_rsa_base64 > ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  - echo -e "Host gitlab.espressif.cn\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+    
 check_lib_reversion:
   stage: check
+  only:
+      changes:
+          - esp32/lib{coexist,core,espnow,net80211,pp,smartconfig}.a
+          - esp32s2/lib{coexist,core,espnow,net80211,pp,smartconfig}.a
   except:
     - master
     - /^release\/v/
@@ -26,7 +48,6 @@ check_lib_reversion:
     - for dir in esp32 esp32s2; do if [ -e $dir/libwps.a ]; then exit 1; fi; done;
     - for dir in esp32 esp32s2; do if [ -e $dir/libwpa.a ]; then exit 1; fi; done;
     - for dir in esp32 esp32s2; do if [ -e $dir/libwpa2.a ]; then exit 1; fi; done;
-
 
 push_master_to_github:
   stage: deploy
@@ -56,3 +77,7 @@ push_master_to_github:
     # NB: In gitlab 9.x, CI_BUILD_REF was deprecated. New name is CI_COMMIT_REF. If below command suddenly
     # generates bash syntax errors, this is probably why.
     - eval $(git for-each-ref --shell bash --format 'if [ $CI_BUILD_REF == %(objectname) ]; then git checkout -B %(refname:strip=3); git push --follow-tags github %(refname:strip=3); fi;' $GITHUB_PUSH_REFS)
+
+include:
+     - 'tools/ci/config/build.yml'
+     - 'tools/ci/config/feature_test.yml'
