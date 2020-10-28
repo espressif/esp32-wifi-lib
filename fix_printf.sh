@@ -32,6 +32,12 @@ for dir in esp32 esp32s2; do
             xtensa-esp32-elf-objcopy --redefine-sym printf=net80211_printf libnet80211.a
         fi
 
+        git status libmesh.a | grep "modified" >/dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            echo $dir/libmesh.a fixed
+            xtensa-esp32-elf-objcopy --redefine-sym printf=mesh_printf libmesh.a
+            xtensa-esp32-elf-objcopy --redefine-sym ets_printf=mesh_printf libmesh.a
+        fi
 
         git status libcore.a | grep "modified" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
