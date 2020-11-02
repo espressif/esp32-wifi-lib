@@ -43,6 +43,13 @@ if [ $? -eq 0 ]; then
     xtensa-esp32-elf-objcopy --redefine-sym printf=pp_printf libpp.a
 fi
 
+git status libmesh.a | grep modified >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo $dir/libmesh.a fixed
+    xtensa-esp32-elf-objcopy --redefine-sym printf=mesh_printf libmesh.a
+    xtensa-esp32-elf-objcopy --redefine-sym ets_printf=mesh_printf libmesh.a
+fi
+
 git status libnet80211.a | grep modified >/dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo $dir/libnet80211.a fixed
