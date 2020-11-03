@@ -37,6 +37,13 @@ if [ $? -eq 0 ]; then
     xtensa-esp32-elf-objcopy --redefine-sym printf=sc_printf libsmartconfig.a
 fi
 
+git status libmesh.a | grep modified >/dev/null 2>&1
+if [ $? -eq 0 ]; then
+    echo $dir/libmesh.a fixed
+    xtensa-esp32-elf-objcopy --redefine-sym printf=mesh_printf libmesh.a
+    xtensa-esp32-elf-objcopy --redefine-sym ets_printf=mesh_printf libmesh.a
+fi
+
 git status libpp.a | grep modified >/dev/null 2>&1
 if [ $? -eq 0 ]; then
     echo $dir/libpp.a fixed
