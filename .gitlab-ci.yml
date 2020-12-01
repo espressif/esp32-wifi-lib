@@ -7,7 +7,7 @@ stages:
 variables:
   IDF_PATH: "$CI_PROJECT_DIR/esp-idf"
   MAKEFLAGS:  "-j8"
-  ESPSIGMA_BRANCH: "master"
+  SSC_BRANCH: "master"
   IDF_BRANCH: "master"
   board: "esp32"
 
