@@ -1,11 +1,13 @@
 #!/bin/bash
-for dir in esp32 esp32s2 esp32c3; do
+for dir in esp32 esp32s2 esp32c3 esp32s3; do
     if [ $dir = esp32 ]; then
         TOOLCHAIN="xtensa-esp32-elf"
     elif [ $dir = esp32s2 ]; then
         TOOLCHAIN="xtensa-esp32s2-elf"
     elif [ $dir = esp32c3 ]; then
         TOOLCHAIN="riscv32-esp-elf"
+    elif [ $dir = esp32s3 ]; then
+        TOOLCHAIN="xtensa-esp32s3-elf"
     else
         echo "$dir does not exist"
     fi
