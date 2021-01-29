@@ -66,12 +66,20 @@ for dir in esp32 esp32s2 esp32c3 esp32s3; do
             $TOOLCHAIN-objcopy --redefine-sym printf=coexist_printf libcoexist.a
         fi
 
+        git status libespnow.a | grep "modified" >/dev/null 2>&1
+        if [ $? -eq 0 ]; then
+            echo $dir/libespnow.a fixed
+            $TOOLCHAIN-objcopy --redefine-sym ets_printf=espnow_printf libespnow.a
+            $TOOLCHAIN-objcopy --redefine-sym printf=espnow_printf libespnow.a
+        fi
+
         git status libwapi.a | grep "modified" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo $dir/libwapi.a fixed
             $TOOLCHAIN-objcopy --redefine-sym ets_printf=wapi_printf libwapi.a
             $TOOLCHAIN-objcopy --redefine-sym printf=wapi_printf libwapi.a
         fi
+
         cd ..
     else
         echo "$dir does not exist"
