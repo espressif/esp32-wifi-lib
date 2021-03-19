@@ -22,12 +22,6 @@ before_script:
     
 check_lib_reversion:
   stage: check
-  only:
-      changes:
-          - esp32/lib{coexist,core,espnow,net80211,pp,smartconfig,mesh,wapi}.a
-          - esp32s2/lib{coexist,core,espnow,net80211,pp,smartconfig,mesh,wapi}.a
-          - esp32s3/lib{coexist,core,espnow,net80211,pp,smartconfig,mesh,wapi}.a
-          - esp32c3/lib{coexist,core,espnow,net80211,pp,smartconfig,mesh,wapi}.a
   except:
     - master
     - /^release\/v/
