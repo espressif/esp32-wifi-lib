@@ -13,19 +13,6 @@ for dir in esp32 esp32s2 esp32c3 esp32s3; do
     fi
     if [ -d "$dir" ]; then
         cd $dir
-        git status libphy.a | grep "modified" >/dev/null 2>&1
-        if [ $? -eq 0 ]; then
-            echo $dir/libphy.a fixed
-            $TOOLCHAIN-objcopy --redefine-sym ets_printf=phy_printf libphy.a
-        fi
-
-        if [ $dir = esp32 ] || [ $dir = esp32s2 ]; then
-            git status librtc.a | grep "modified" >/dev/null 2>&1
-            if [ $? -eq 0 ]; then
-                echo $dir/librtc.a fixed
-                $TOOLCHAIN-objcopy --redefine-sym ets_printf=rtc_printf librtc.a
-            fi
-        fi
 
         git status libsmartconfig.a | grep "modified" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
