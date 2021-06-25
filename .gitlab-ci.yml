@@ -12,20 +12,20 @@ check_lib_reversion:
     - GIT_COMMIT_ID=`git log --pretty="%s" -1 | grep -o '([0-9a-f]*)' | tail -1 | cut -c 2-8`
     - echo "GIT_COMMIT_ID is "$GIT_COMMIT_ID
     - test $(echo -n $GIT_COMMIT_ID | wc -c) -eq 7
-    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libcoexist.a; done;
-    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libcore.a; done;
-    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libespnow.a; done;
-    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libespnow.a; done;
-    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libnet80211.a; done;
-    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libpp.a; done;
-    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID $dir/libsmartconfig.a; done;
-    - for dir in esp32 esp32s2beta; do grep $GIT_COMMIT_ID-remote $dir/libnet80211.a; done;
-    - for dir in esp32 esp32s2beta; do test $(grep $GIT_COMMIT_ID-dirty $dir/*.a | wc -l) -eq 0; done;
-    - for dir in esp32 esp32s2beta; do test $(xtensa-esp32-elf-nm $dir/*.a | grep -w printf | wc -l) -eq 0; done;
-    - for dir in esp32 esp32s2beta; do test $(xtensa-esp32-elf-nm $dir/*.a | grep -w ets_printf | wc -l) -eq 0; done;
-    - for dir in esp32 esp32s2beta; do if [ -e $dir/libwps.a ]; then exit 1; fi; done;
-    - for dir in esp32 esp32s2beta; do if [ -e $dir/libwpa.a ]; then exit 1; fi; done;
-    - for dir in esp32 esp32s2beta; do if [ -e $dir/libwpa2.a ]; then exit 1; fi; done;
+    - for dir in esp32; do grep $GIT_COMMIT_ID $dir/libcoexist.a; done;
+    - for dir in esp32; do grep $GIT_COMMIT_ID $dir/libcore.a; done;
+    - for dir in esp32; do grep $GIT_COMMIT_ID $dir/libespnow.a; done;
+    - for dir in esp32; do grep $GIT_COMMIT_ID $dir/libespnow.a; done;
+    - for dir in esp32; do grep $GIT_COMMIT_ID $dir/libnet80211.a; done;
+    - for dir in esp32; do grep $GIT_COMMIT_ID $dir/libpp.a; done;
+    - for dir in esp32; do grep $GIT_COMMIT_ID $dir/libsmartconfig.a; done;
+    - for dir in esp32; do grep $GIT_COMMIT_ID-remote $dir/libnet80211.a; done;
+    - for dir in esp32; do test $(grep $GIT_COMMIT_ID-dirty $dir/*.a | wc -l) -eq 0; done;
+    - for dir in esp32; do test $(xtensa-esp32-elf-nm $dir/*.a | grep -w printf | wc -l) -eq 0; done;
+    - for dir in esp32; do test $(xtensa-esp32-elf-nm $dir/*.a | grep -w ets_printf | wc -l) -eq 0; done;
+    - for dir in esp32; do if [ -e $dir/libwps.a ]; then exit 1; fi; done;
+    - for dir in esp32; do if [ -e $dir/libwpa.a ]; then exit 1; fi; done;
+    - for dir in esp32; do if [ -e $dir/libwpa2.a ]; then exit 1; fi; done;
 
 
 push_master_to_github:
