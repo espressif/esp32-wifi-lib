@@ -42,6 +42,8 @@ check_lib_reversion:
     - for dir in esp32 esp32s2 esp32s3 esp32c3; do test $(grep $GIT_COMMIT_ID-dirty $dir/*.a | wc -l) -eq 0; done;
     - for dir in esp32 esp32s2 esp32s3; do test $(xtensa-esp32-elf-nm $dir/*.a | grep -w printf | wc -l) -eq 0; done;
     - for dir in esp32 esp32s2 esp32s3; do test $(xtensa-esp32-elf-nm $dir/*.a | grep -w ets_printf | wc -l) -eq 0; done;
+    - for dir in esp32c3; do test $(riscv32-esp-elf-nm $dir/*.a | grep -w printf | wc -l) -eq 0; done;
+    - for dir in esp32c3; do test $(riscv32-esp-elf-nm $dir/*.a | grep -w ets_printf | wc -l) -eq 0; done;
     - for dir in esp32 esp32s2 esp32s3 esp32c3; do if [ -e $dir/libwps.a ]; then exit 1; fi; done;
     - for dir in esp32 esp32s2 esp32s3 esp32c3; do if [ -e $dir/libwpa.a ]; then exit 1; fi; done;
     - for dir in esp32 esp32s2 esp32s3 esp32c3; do if [ -e $dir/libwpa2.a ]; then exit 1; fi; done;
