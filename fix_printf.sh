@@ -12,6 +12,7 @@ for dir in esp32 esp32s2 esp32c3 esp32s3 esp32c2; do
         echo "$dir does not exist"
     fi
     if [ -d "$dir" ]; then
+        chmod -x $dir/*;
         cd $dir
 
         git status libsmartconfig.a | grep "modified" >/dev/null 2>&1

@@ -45,6 +45,7 @@ check_lib_reversion:
     - for dir in esp32 esp32s2 esp32s3 esp32c3 esp32c2; do if [ -e $dir/libwps.a ]; then exit 1; fi; done;
     - for dir in esp32 esp32s2 esp32s3 esp32c3 esp32c2; do if [ -e $dir/libwpa.a ]; then exit 1; fi; done;
     - for dir in esp32 esp32s2 esp32s3 esp32c3 esp32c2; do if [ -e $dir/libwpa2.a ]; then exit 1; fi; done;
+    - for dir in esp32 esp32s2 esp32s3 esp32c3 esp32c2; do cd $dir; for filename in *; do if [[ -x "$file" ]]; then echo "Execute permissions for $dir/$filename";  exit 1; fi; done; cd .. ; done
 
 push_master_to_github:
   stage: deploy
