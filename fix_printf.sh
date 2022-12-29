@@ -1,10 +1,10 @@
 #!/bin/bash
-for dir in esp32 esp32s2 esp32c3 esp32s3 esp32c2; do
+for dir in esp32 esp32s2 esp32c3 esp32s3 esp32c2 esp32c6; do
     if [ $dir = esp32 ]; then
         TOOLCHAIN="xtensa-esp32-elf"
     elif [ $dir = esp32s2 ]; then
         TOOLCHAIN="xtensa-esp32s2-elf"
-    elif [ $dir = esp32c3 -o $dir = esp32c2 ]; then
+    elif [ $dir = esp32c3 -o $dir = esp32c2 -o $dir = esp32c6 ]; then
         TOOLCHAIN="riscv32-esp-elf"
     elif [ $dir = esp32s3 ]; then
         TOOLCHAIN="xtensa-esp32s3-elf"
