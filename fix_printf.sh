@@ -48,13 +48,6 @@ for dir in esp32 esp32s2 esp32c3 esp32s3 esp32c2 esp32c6; do
             $TOOLCHAIN-objcopy --redefine-sym ets_printf=core_printf libcore.a
         fi
 
-        git status libcoexist.a | grep "modified" >/dev/null 2>&1
-        if [ $? -eq 0 ]; then
-            echo $dir/libcoexist.a fixed
-            $TOOLCHAIN-objcopy --redefine-sym ets_printf=coexist_printf libcoexist.a
-            $TOOLCHAIN-objcopy --redefine-sym printf=coexist_printf libcoexist.a
-        fi
-
         git status libespnow.a | grep "modified" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo $dir/libespnow.a fixed
