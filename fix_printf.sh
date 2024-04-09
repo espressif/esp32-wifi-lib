@@ -1,10 +1,10 @@
 #!/bin/bash
-for dir in esp32 esp32s2 esp32c3 esp32s3 esp32c2 esp32c6 esp32_host; do
+for dir in esp32 esp32s2 esp32c3 esp32s3 esp32c2 esp32c6 esp32_host esp32c5; do
     if [ $dir = esp32 ]; then
         TOOLCHAIN="xtensa-esp32-elf"
     elif [ $dir = esp32s2 ]; then
         TOOLCHAIN="xtensa-esp32s2-elf"
-    elif [ $dir = esp32c3 -o $dir = esp32c2 -o $dir = esp32c6 -o $dir = esp32_host ]; then
+    elif [ $dir = esp32c3 -o $dir = esp32c2 -o $dir = esp32c6 -o $dir = esp32_host -o $dir = esp32c5 ]; then
         TOOLCHAIN="riscv32-esp-elf"
     elif [ $dir = esp32s3 ]; then
         TOOLCHAIN="xtensa-esp32s3-elf"
@@ -15,53 +15,53 @@ for dir in esp32 esp32s2 esp32c3 esp32s3 esp32c2 esp32c6 esp32_host; do
         chmod -x $dir/*;
         cd $dir
 
-        git status libsmartconfig.a | grep "modified" >/dev/null 2>&1
+        git status libsmartconfig.a | grep "modified\|new file" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo $dir/libsmartconfig.a fixed
             $TOOLCHAIN-objcopy --redefine-sym printf=sc_printf libsmartconfig.a
         fi
 
-        git status libpp.a | grep "modified" >/dev/null 2>&1
+        git status libpp.a | grep "modified\|new file" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo $dir/libpp.a fixed
             $TOOLCHAIN-objcopy --redefine-sym printf=pp_printf libpp.a
             $TOOLCHAIN-objcopy --redefine-sym ets_printf=pp_printf libpp.a
         fi
 
-        git status libnet80211.a | grep "modified" >/dev/null 2>&1
+        git status libnet80211.a | grep "modified\|new file" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo $dir/libnet80211.a fixed
             $TOOLCHAIN-objcopy --redefine-sym printf=net80211_printf libnet80211.a
         fi
 
-        git status libtarget.a | grep "modified" >/dev/null 2>&1
+        git status libtarget.a | grep "modified\|new file" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo $dir/libtarget.a fixed
             $TOOLCHAIN-objcopy --redefine-sym printf=target_printf libtarget.a
         fi
 
-        git status libmesh.a | grep "modified" >/dev/null 2>&1
+        git status libmesh.a | grep "modified\|new file" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo $dir/libmesh.a fixed
             $TOOLCHAIN-objcopy --redefine-sym printf=mesh_printf libmesh.a
             $TOOLCHAIN-objcopy --redefine-sym ets_printf=mesh_printf libmesh.a
         fi
 
-        git status libcore.a | grep "modified" >/dev/null 2>&1
+        git status libcore.a | grep "modified\|new file" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo $dir/libcore.a fixed
             $TOOLCHAIN-objcopy --redefine-sym printf=core_printf libcore.a
             $TOOLCHAIN-objcopy --redefine-sym ets_printf=core_printf libcore.a
         fi
 
-        git status libespnow.a | grep "modified" >/dev/null 2>&1
+        git status libespnow.a | grep "modified\|new file" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo $dir/libespnow.a fixed
             $TOOLCHAIN-objcopy --redefine-sym ets_printf=espnow_printf libespnow.a
             $TOOLCHAIN-objcopy --redefine-sym printf=espnow_printf libespnow.a
         fi
 
-        git status libwapi.a | grep "modified" >/dev/null 2>&1
+        git status libwapi.a | grep "modified\|new file" >/dev/null 2>&1
         if [ $? -eq 0 ]; then
             echo $dir/libwapi.a fixed
             $TOOLCHAIN-objcopy --redefine-sym ets_printf=wapi_printf libwapi.a
